@@ -20,15 +20,15 @@ export const reset = css`
     button {
         border: none;
         padding: 10px 20px;
-        background-color: transparent;
+        background-color: pink;
         cursor: pointer;
     }
 
     button:hover {
-        background-color: #ffffff;
+        background-color: #fafafa;
     }
 
     button:active {
-        background-color: #fafafa;
+        background-color: #dddddd;
     }
 `;
