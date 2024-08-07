@@ -9,6 +9,7 @@ export const layout = css`
 `;
 
 export const fram = css`
+    position: relative;
     border: 2px solid #000000;
     border-radius: 40px;
     width: 375px;
@@ -18,15 +19,38 @@ export const fram = css`
 `;
 
 export const topBar = css`
+    position: absolute;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    width: 100%;
+    height: 45px;
 `;
 
 export const topBarCenter = css`
     border-radius: 20px;
-    width: 45%;
-    height: 25px;
+    width: 35%;
+    height: 30px;
     background-color: black;
+`;
+
+export const clock = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32%;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: default;
+`;
+
+export const rightItems = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32%;
+    & *:nth-of-type(2) {
+        margin: 0px 5px;
+    }
 `;
