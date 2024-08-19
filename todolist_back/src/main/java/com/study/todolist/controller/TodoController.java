@@ -31,6 +31,10 @@ public class TodoController {
         return ResponseEntity.ok().body(todoService.getTodoCounts());
     }
 
+    @PutMapping("/todo/{todoId}/status")
+    public ResponseEntity<?> changeStatus(@PathVariable int todoId) {
+        return ResponseEntity.ok().body(todoService.changeStatus(todoId));
+    }
 }
 
 

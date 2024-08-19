@@ -17,7 +17,13 @@ function Dashboard(props) {
     const setTodolistAll = useSetRecoilState(todolistAtom);
     const [ refresh, setRefresh ] = useRecoilState(refreshTodolistAtom);
     
-
+    useEffect(() => {
+        if(refresh) {
+            requestTodolist();
+        }
+        setRefresh(false);
+    }, [refresh]);
+    
     const requestTodolist = async () => {
         const todolist = await getTodoAllApi();
         const counts = await getTodoCountsApi();
@@ -27,12 +33,7 @@ function Dashboard(props) {
         });
     }
 
-    useEffect(() => {
-        if(refresh) {
-            requestTodolist();
-        }
-        setRefresh(false);
-    }, [refresh]);
+    
 
 
     return (

@@ -35,6 +35,10 @@ public class TodoService {
     public RespTodoCountsDto getTodoCounts() {
         return todoMapper.getTodoCounts().toDto();
     }
+
+    public int changeStatus(int todoId) {
+        return todoMapper.changeStatus(todoId);
+    }
 }
 
 

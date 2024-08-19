@@ -8,13 +8,15 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import { MENUS } from '../../constants/menus';
 import { useRecoilState } from 'recoil';
 import { todolistAtom } from '../../atoms/todolistAtoms';
-import YearGroup from '../../components/YearGroup/YearGroup';
 import TodoCalendar from '../../components/TodoCalendar/TodoCalendar';
 import RegisterTodoButton from '../../components/RegisterTodoButton/RegisterTodoButton';
+import { selectedCalendarTodoAtom } from '../../atoms/calendarAtoms';
+import ConfirmButtonTop from '../../components/ConfirmButtonTop/ConfirmButtonTop';
 
 function TodoAll(props) {
     const [ isShow, setShow ] = useState(true);
     const [ todolistAll ] = useRecoilState(todolistAtom);
+    const [ selectedTodo, setSelectedTodo ] = useRecoilState(selectedCalendarTodoAtom);
     const [ calendarData, setCalendarData ] = useState({});
     
 
@@ -44,12 +46,25 @@ function TodoAll(props) {
 
     }, [todolistAll]);
 
+    const modifyCancel = () => {
+        setSelectedTodo(0);
+    }
+
+    const modifySubmit = () => {
+        
+        setSelectedTodo(0);
+    }
+
 
     return (
         <PageAnimationLayout isShow={isShow} setShow={setShow}>
             <MainContainer>
                 <div css={s.layout}>
-                    <BackButtonTop setShow={setShow} />
+                    {
+                        selectedTodo === 0 
+                        ? <BackButtonTop setShow={setShow} />
+                        : <ConfirmButtonTop onCancel={modifyCancel} onSubmit={modifySubmit}/>
+                    }
                     <PageTitle title={MENUS.all.title} color={MENUS.all.color} />
                     <TodoCalendar calendarData={calendarData}/>
                     <RegisterTodoButton/>

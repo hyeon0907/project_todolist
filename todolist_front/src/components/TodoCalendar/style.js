@@ -51,9 +51,6 @@ export const todoBox  = css`
 export const todoDateTime = css`
     cursor: pointer;
 `
-export const todoSubBox = css`
-    display: flex;
-`
 
 export const todoTitleBox = css`
     display: flex;
@@ -62,7 +59,7 @@ export const todoTitleBox = css`
 `
 
 export const todoTitleAndTime = css`
-    flex-grow: 1;
+    width: 92%;
     display: flex;
     justify-content: space-between;
 
@@ -71,6 +68,24 @@ export const todoTitleAndTime = css`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        margin-right: 5px;
+    }
+
+    & > input {
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        padding: 0px 3px;
+        width: 100%;
+        background-color: #f5f5f5;
+        overflow-y: auto;
+        resize: none;
+        color: #777777;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 `
 
@@ -101,5 +116,34 @@ export const todoCheckBox = css`
         width: 14px;
         height: 14px;
         background-color: #7a7a7a;
+    }
+`
+
+export const todoSubBox = css`
+    display: flex;
+    flex-direction: column;
+    padding-left: 28px;
+`
+
+export const contentBox = css`
+    & > h3 {
+        cursor: default;
+    }
+
+    & > textarea {
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        padding: 0px 3px;
+        width: 100%;
+        background-color: #f5f5f5;
+        overflow-y: auto;
+        resize: none;
+        color: #777777;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 `
