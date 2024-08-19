@@ -1,29 +1,25 @@
-import { Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import NotFound from "./pages/NotFound/NotFound";
 import { Global } from "@emotion/react";
 import { reset } from "./styles/common";
 import DandP from "./pages/DandP/DandP";
 import MainLayout from "./components/MainLayout/MainLayout";
-import TodoAll from "./pages/TodoAll/TodoAll";
-import Aaa from "./Aaa";
 
-/*
-{/* <Global styles={reset} />
+function App() {
+    return (
+        <>
+            <Global styles={reset} />
             <MainLayout>
                 <Routes>
+                    <Route path="/" element={<Navigate to="/todo" />} />
                     <Route path="/todo/*" element={<Dashboard />} />
                     <Route path="/login" element={<></>} />
                     <Route path="/join" element={<></>} />
                     <Route path="/dp" element={<DandP />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-            </MainLayout> }
-            */
-function App() {
-    return (
-        <>
-            <Aaa/>
+            </MainLayout>
         </>
     );
 }

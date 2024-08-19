@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import * as s from "./style";
 import { IoCellularSharp } from "react-icons/io5";
 import { IoIosWifi, IoIosBatteryFull } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 function MainLayout({ children }) {
     const [ clock, setClock ] = useState("0:00");

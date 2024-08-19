@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import DateTitle from "../../components/Dashboard/DateTitle/DateTitle";
 import MenuList from "../../components/Dashboard/MenuList/MenuList";
 import Search from "../../components/Dashboard/Search/Search";
@@ -16,6 +16,7 @@ import { useEffect } from "react";
 function Dashboard(props) {
     const setTodolistAll = useSetRecoilState(todolistAtom);
     const [ refresh, setRefresh ] = useRecoilState(refreshTodolistAtom);
+    
 
     const requestTodolist = async () => {
         const todolist = await getTodoAllApi();
@@ -32,6 +33,7 @@ function Dashboard(props) {
         }
         setRefresh(false);
     }, [refresh]);
+
 
     return (
         <MainContainer>
