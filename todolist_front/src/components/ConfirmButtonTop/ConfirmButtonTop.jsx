@@ -2,8 +2,7 @@
 import * as s from "./style";
 import { useNavigate } from 'react-router-dom';
 
-function ConfirmButtonTop({ onSubmit, onCancel }) {
-    const navigate = useNavigate();
+function ConfirmButtonTop({ onSubmit, onCancel, disabled }) {
 
     const handleCancelClick = () => {
         onCancel();
@@ -16,7 +15,7 @@ function ConfirmButtonTop({ onSubmit, onCancel }) {
     return (
         <div css={s.layout}>
             <button onClick={handleCancelClick}>&lt; 취소</button>
-            <button onClick={handleSubmitClick}>&lt; 완료</button>
+            <button onClick={handleSubmitClick} disabled={disabled}>&lt; 완료</button>
         </div>
     );
 }

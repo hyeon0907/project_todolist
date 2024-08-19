@@ -1,6 +1,7 @@
 package com.study.todolist.service;
 
 import com.study.todolist.dto.request.todo.ReqAddTodoDto;
+import com.study.todolist.dto.request.todo.ReqModifyTodoDto;
 import com.study.todolist.dto.response.todo.RespTodoCountsDto;
 import com.study.todolist.dto.response.todo.RespTodoDto;
 import com.study.todolist.entity.Todo;
@@ -38,6 +39,18 @@ public class TodoService {
 
     public int changeStatus(int todoId) {
         return todoMapper.changeStatus(todoId);
+    }
+
+    public int modifyTodo(ReqModifyTodoDto dto) {
+        // toEmtity사용안할때
+//        Todo todo = Todo.builder()
+//                .todoId(todoId)
+//                .title(dto.getTitle())
+//                .content(dto.getContent())
+//                .important(dto.getImportant())
+//                .busy(dto.getBusy())
+//                .build();
+        return  todoMapper.modifyTodoByTodoId(dto.toEntity());
     }
 }
 

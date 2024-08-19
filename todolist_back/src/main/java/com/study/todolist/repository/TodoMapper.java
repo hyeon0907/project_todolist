@@ -12,4 +12,5 @@ public interface TodoMapper {
     List<Todo> findAll();
     TodoCounts getTodoCounts();
     int changeStatus(int todoId);
+    int modifyTodoByTodoId(Todo todo);
 }

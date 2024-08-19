@@ -10,15 +10,33 @@ import { useRecoilState } from 'recoil';
 import { todolistAtom } from '../../atoms/todolistAtoms';
 import TodoCalendar from '../../components/TodoCalendar/TodoCalendar';
 import RegisterTodoButton from '../../components/RegisterTodoButton/RegisterTodoButton';
-import { selectedCalendarTodoAtom } from '../../atoms/calendarAtoms';
+import { modifyTodoAtom, selectedCalendarTodoAtom } from '../../atoms/calendarAtoms';
 import ConfirmButtonTop from '../../components/ConfirmButtonTop/ConfirmButtonTop';
 
 function TodoAll(props) {
-    const [ isShow, setShow ] = useState(true);
     const [ todolistAll ] = useRecoilState(todolistAtom);
     const [ selectedTodo, setSelectedTodo ] = useRecoilState(selectedCalendarTodoAtom);
-    const [ calendarData, setCalendarData ] = useState({});
+    const [ modifyTodo, setModifyTodo ] = useRecoilState(modifyTodoAtom);
     
+    const [ calendarData, setCalendarData ] = useState({});
+    const [ isShow, setShow ] = useState(true);
+    const [ submitButtonDisabled, setSubmitButtonDisabled ] = useState(true);
+
+    useEffect(() => {
+        // modifyTodo에 todo가 없는 경우 : 맨처음은 빈 객체를 넣어서 todo가 없음
+        let preTodo = {
+            ...(todolistAll.todolist.filter(todo =>
+            todo.todoId === modifyTodo?.todoId)[0]),
+        }
+        preTodo = {
+            ...preTodo, 
+            todoDateTime: preTodo?.todoDateTime?.replaceAll(" ", "T")
+        }
+        console.log(preTodo);
+        console.log(modifyTodo);
+        const disabled = JSON.stringify(modifyTodo) === JSON.stringify(preTodo) || !modifyTodo?.title?.trim();
+        setSubmitButtonDisabled(disabled);
+    }, [modifyTodo]);
 
     useEffect(() => {
         const tempcalendarData = {};
@@ -50,7 +68,7 @@ function TodoAll(props) {
         setSelectedTodo(0);
     }
 
-    const modifySubmit = () => {
+    const modifySubmit = async () => {
         
         setSelectedTodo(0);
     }
@@ -63,7 +81,7 @@ function TodoAll(props) {
                     {
                         selectedTodo === 0 
                         ? <BackButtonTop setShow={setShow} />
-                        : <ConfirmButtonTop onCancel={modifyCancel} onSubmit={modifySubmit}/>
+                        : <ConfirmButtonTop onCancel={modifyCancel} onSubmit={modifySubmit} disabled={submitButtonDisabled}/>
                     }
                     <PageTitle title={MENUS.all.title} color={MENUS.all.color} />
                     <TodoCalendar calendarData={calendarData}/>

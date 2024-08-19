@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { changeCheckTodoStatus } from "../../apis/todoApis/modifyTodoApi";
 import * as s from "./style";
 import { refreshTodolistAtom } from "../../atoms/todolistAtoms";
-import { selectedCalendarTodoAtom } from "../../atoms/calendarAtoms";
+import { modifyTodoAtom, selectedCalendarTodoAtom } from "../../atoms/calendarAtoms";
 import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 
@@ -19,10 +19,15 @@ function TodoBox({ todo}) {
     ];
     const [ selectedTodo, setSelectedTodo ] = useRecoilState(selectedCalendarTodoAtom);
     const setRefresh = useSetRecoilState(refreshTodolistAtom);
-    const [ modifyTodo, setModifyTodo ] = useState({...todo});
+    const [ modifyTodo, setModifyTodo ] = useRecoilState(modifyTodoAtom);
 
     useEffect(() => {
-        setModifyTodo({...todo});
+        if(selectedTodo === todo.todoId){
+            setModifyTodo({
+                ...todo,
+                todoDateTime: todo.todoDateTime.replaceAll(" ", "T"),
+            });
+        }
     }, [selectedTodo])
     
     const handleCheckBoxOnChange = async (e) => {
@@ -125,7 +130,7 @@ function TodoBox({ todo}) {
                             menuList: (style) => ({
                                 ...style,
                                 cursor: "pointer",
-                            })
+                            })``
                         }}
                         options={busyOptions}
                         value={busyOptions.filter(option => option.value === modifyTodo.busy)[0]}
