@@ -118,6 +118,14 @@ function TodoBox({ todo}) {
                                 boxShadow: "none",
                                 backgroundColor: "#f5f5f5",
                             }),
+                            menu: (style) => ({
+                                ...style,
+                                backgroundColor: "#f5f5f5"
+                            }),
+                            menuList: (style) => ({
+                                ...style,
+                                cursor: "pointer",
+                            })
                         }}
                         options={busyOptions}
                         value={busyOptions.filter(option => option.value === modifyTodo.busy)[0]}
