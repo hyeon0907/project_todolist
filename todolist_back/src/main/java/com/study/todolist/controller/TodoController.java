@@ -4,6 +4,7 @@ import com.study.todolist.dto.request.todo.ReqAddTodoDto;
 import com.study.todolist.dto.request.todo.ReqModifyTodoDto;
 import com.study.todolist.service.TodoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,11 @@ public class TodoController {
     public ResponseEntity<?> modify(@RequestBody ReqModifyTodoDto dto) {
         log.info("{}", dto);
         return ResponseEntity.ok().body(todoService.modifyTodo(dto));
+    }
+
+    @DeleteMapping("/todo/{todoId}")
+    public ResponseEntity<?> delete(@PathVariable int todoId){
+        return ResponseEntity.ok().body(todoService.deleteTodo(todoId));
     }
 }
 

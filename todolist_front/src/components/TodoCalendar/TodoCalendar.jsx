@@ -6,6 +6,8 @@ import { refreshTodolistAtom } from "../../atoms/todolistAtoms";
 import { modifyTodoAtom, selectedCalendarTodoAtom } from "../../atoms/calendarAtoms";
 import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
+import FullRedButton from "../FullRedButton/FullRedButton";
+import { deleteTodoApi } from "../../apis/todoApis/deleteTodoApi";
 
 function TodoBox({ todo}) {
     const importantOptions = [
@@ -28,7 +30,7 @@ function TodoBox({ todo}) {
                 todoDateTime: todo.todoDateTime.replaceAll(" ", "T"),
             });
         }
-    }, [selectedTodo])
+    }, [selectedTodo]);
     
     const handleCheckBoxOnChange = async (e) => {
         //changeCheckTodoStatus(todo.todoId); 전역으로 todo를 받아오기 때문에 target없이 사용가능
@@ -59,6 +61,12 @@ function TodoBox({ todo}) {
             ...modifyTodo,
             busy: option.value
         }));
+    };
+
+    const handleDeleteClick = async () => {
+        await deleteTodoApi(todo.todoId);
+        setRefresh(true);
+        setSelectedTodo(0);
     }
 
     return <div css={s.todoBox}>
@@ -95,7 +103,7 @@ function TodoBox({ todo}) {
                         styles={{
                             control: (style) => ({
                                 ...style,
-                                marginBottom: "5px",
+                                marginBottom: "10px",
                                 border: "none", 
                                 outline: "none", 
                                 boxShadow: "none",
@@ -118,6 +126,7 @@ function TodoBox({ todo}) {
                         styles={{
                             control: (style) => ({
                                 ...style, 
+                                marginBottom: "5px",
                                 border: "none", 
                                 outline: "none", 
                                 boxShadow: "none",
@@ -130,11 +139,14 @@ function TodoBox({ todo}) {
                             menuList: (style) => ({
                                 ...style,
                                 cursor: "pointer",
-                            })``
+                            })
                         }}
                         options={busyOptions}
                         value={busyOptions.filter(option => option.value === modifyTodo.busy)[0]}
                     />
+                    <div css={s.deleteButton}>
+                            <FullRedButton onClick={() => handleDeleteClick(todo.todoId)}>삭제하기</FullRedButton>
+                    </div>
                     </div>
                 </>
             }

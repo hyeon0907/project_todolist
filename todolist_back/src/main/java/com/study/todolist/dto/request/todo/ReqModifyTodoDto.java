@@ -12,7 +12,7 @@ public class ReqModifyTodoDto {
     private int userId;
     private String title;
     private String content;
-    private String todoDatetime;
+    private String todoDateTime;
     private int important;
     private int busy;
     private int status;
@@ -23,7 +23,7 @@ public class ReqModifyTodoDto {
                 .userId(userId)
                 .title(title)
                 .content(content)
-                .todoDateTime(LocalDateTime.parse(todoDatetime))
+                .todoDateTime(LocalDateTime.parse(todoDateTime))
                 .important(important)
                 .busy(busy)
                 .status(status)

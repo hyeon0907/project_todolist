@@ -15,7 +15,7 @@ import ConfirmButtonTop from '../../components/ConfirmButtonTop/ConfirmButtonTop
 import SubPageContainer from '../../components/SubPageContainer/SubPageContainer';
 import { updatetodoApi } from '../../apis/todoApis/updateTodoApi';
 
-function TodoAll(props) {
+function TodoToday(props) {
     const [ todolistAll ] = useRecoilState(todolistAtom);
     const [ selectedTodo, setSelectedTodo ] = useRecoilState(selectedCalendarTodoAtom);
     const [ modifyTodo, setModifyTodo ] = useRecoilState(modifyTodoAtom);
@@ -43,7 +43,15 @@ function TodoAll(props) {
 
     useEffect(() => {
         const tempcalendarData = {};
+        const parse = (value) => (value < 10 ? "0" : "") + value;
+        const todoDate = new Date();
+        const today = `${todoDate.getFullYear()}-${parse(todoDate.getMonth() + 1)}-${parse(todoDate.getDate())}`;
+
         for(let todo of todolistAll.todolist) {
+            const todoDateTime = todo.todoDateTime.slice(0, 10);
+            if(todoDateTime !== today){
+                continue;
+            }
             const dateTime = todo.todoDateTime;
             const year = dateTime.slice(0, 4);
             const month = dateTime.slice(5, 7);
@@ -87,7 +95,7 @@ function TodoAll(props) {
                         ? <BackButtonTop setShow={setShow} />
                         : <ConfirmButtonTop onCancel={modifyCancel} onSubmit={modifySubmit} disabled={submitButtonDisabled}/>
                     }
-                    <PageTitle title={MENUS.all.title} color={MENUS.all.color} />
+                    <PageTitle title={MENUS.today.title} color={MENUS.today.color} />
                     <TodoCalendar calendarData={calendarData}/>
                     <RegisterTodoButton/>
                 </div>
@@ -96,4 +104,4 @@ function TodoAll(props) {
     );
 }
 
-export default TodoAll;
+export default TodoToday;
